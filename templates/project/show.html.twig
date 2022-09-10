@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Project {{ project.name }}{% endblock %}
+
+{% block body %}
+
+    <div class="example-wrapper">
+        <h1>Project {{ project.name }}</h1>
+        <ul>
+            <li>Start Date : {{ project.startDate|date("d/m/Y") }}</li>
+            <li>Price Sold : {{ project.priceSold }} €</li>
+            <li>Type : {{ project.technology }}</li>
+            <li>Company : {{ project.company }}</li>
+            <li>Workers : {{ project.workers }}</li>
+        </ul>
+    </div>
+{% endblock %}
