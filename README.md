@@ -8,3 +8,9 @@
 php bin/console app:import-data
 ````
 
+- Run 
+````bash
+Symfony serve
+````
+
+- and go [here](http://localhost:8000) to see the result 

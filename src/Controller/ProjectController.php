@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
-use App\Entity\Project;
 use App\Repository\ProjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class ProjectController extends AbstractController
 {
@@ -19,11 +22,29 @@ class ProjectController extends AbstractController
     }
 
     #[Route('/', name: 'list_project')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
+
+        $form = $this->createFormBuilder(null)
+            ->add('query', TextType::class)
+            ->add('search', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['query'];
+
+
+
+            return $this->render('project/index.html.twig', [
+                'projects' => $this->projectRepository->findByNameLike($search),
+                'form' => $form->createView(),
+            ]);
+        }
 
         return $this->render('project/index.html.twig', [
             'projects' => $this->projectRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 

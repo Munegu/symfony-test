@@ -3,7 +3,7 @@
 {% block title %}Projects{% endblock %}
 
 {% block body %}
-
+    {{ form(form) }}
 <div class="example-wrapper">
     <h1>List of all projects</h1>
     <ul>
@@ -13,5 +13,8 @@
            </li>
         {% endfor %}
     </ul>
+    <button>
+        <a href="{{ path('list_project') }}">Rafraichir</a>
+    </button>
 </div>
 {% endblock %}
